@@ -13,6 +13,12 @@ routes.post('/sessions', SessionController.store);
 
 routes.post('/houses', upload.single('thumbnail'), HouseController.store);
 
+routes.get('/houses', HouseController.index);
+
+routes.put('/houses/:house_id', upload.single('thumbnail'), HouseController.update);
+
+routes.delete('/houses', HouseController.delete);
+
 
 export default routes;
 
