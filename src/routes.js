@@ -4,6 +4,7 @@ import uploadConfig from './config/upload';
 
 import SessionController from './controllers/SessionController';
 import HouseController from './controllers/HouseController';
+import DashboardController from './controllers/DashboardController';
 
 
 const routes = new Router();
@@ -19,6 +20,7 @@ routes.put('/houses/:house_id', upload.single('thumbnail'), HouseController.upda
 
 routes.delete('/houses', HouseController.delete);
 
+routes.get('/dashboard', DashboardController.show);
 
 export default routes;
 
