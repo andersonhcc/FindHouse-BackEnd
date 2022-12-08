@@ -4,11 +4,14 @@ import User from '../models/User';
 class HouseController {
 
   async index(req,res) {
-    const { status} = req.query;
+    const { status} = req.query; // pegando o status do query na api;
 
     const houses = await House.find({ status });
+    // buscando toddas as casas que tem status (true ou false, defino na api)
 
     return res.json(houses);
+
+    // retorno todas as coisas de acordo com oq escolhi
 
   }
 
@@ -32,10 +35,10 @@ class HouseController {
 }
 
   async update(req,res) {
-    const { filename } = req.file;
-    const { house_id} = req.params;
-    const {description, price, location, status} = req.body;
-    const { user_id} = req.headers;
+    const { filename } = req.file; // pegando a imagem
+    const { house_id} = req.params; // pegando o id da casa
+    const {description, price, location, status} = req.body; // pegando as informações do body
+    const { user_id} = req.headers; // pegando id do usuário para verificação
 
     const user = await User.findById(user_id);
     const houses = await House.findById(house_id);
@@ -44,9 +47,7 @@ class HouseController {
       return res.status(401).json({ error: 'Não autorizado.'});
     }
 
-
-
-     await House.updateOne({_id: house_id}, {
+     await House.updateOne({_id: house_id}, { //quero editar uma, por isso updateOne, esse {{_id: house_id}} é por conta que é para localizar a casa que estamos mandando
       user: user_id,
       thumbnail: filename,
       description,
@@ -54,12 +55,13 @@ class HouseController {
       location,
       status,
     });
-    return res.send();
+    
+    return res.json({ message: 'Atualizado com sucesso' });
 
   }
 
   async delete(req,res){
-    const { house_id} = req.params;
+    const { house_id} = req.body;
     const { user_id } = req.headers;
     
     const user = await User.findById(user_id);
