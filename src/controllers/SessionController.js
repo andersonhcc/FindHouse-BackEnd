@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 //métodos : index, show, update, store, destroy
 
 /* 
@@ -12,8 +14,15 @@ destroy: deeletar uma sessão
 import User from "../models/User";
 
 class SessionController {
-  
   async store(req,res){
+    const schema = yup.object().shape({
+      email: yup.string().email().required(),
+    })
+
+    if(!(await schema.isValid(req.body))){
+      return res.status(401).json({error: 'Falha no login'})
+    }
+
     const { email } = req.body;
 
     //verificando se o usuário já existe
