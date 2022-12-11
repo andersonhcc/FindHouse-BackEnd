@@ -4,6 +4,20 @@ import User from "../models/User";
 
 class ReserveController {
   
+  async index(req, res) {
+    const { user_id } = req.headers;
+
+    const reserves = await Reserve.findById({user: user_id}).populate("house")
+    .populate("user")
+    .exec(function (err, reserve) {
+      return res.json(reserves);
+    });;
+
+
+  }
+
+
+
   async store(req, res) {  
     const { user_id } = req.headers;
     const { house_id } = req.params;
@@ -37,6 +51,14 @@ class ReserveController {
     .exec(function (err, reserve) {
       return res.json(reserve);
     });
+  }
+
+  async destroy (req, res) {
+    const { reserve_id } = req.body;
+    
+    await Reserve.findByIdAndDelete({_id : reserve_id});
+
+    return res.send();
   }
 }
 
