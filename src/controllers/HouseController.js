@@ -49,6 +49,14 @@ class HouseController {
 }
 
   async update(req,res) {
+    const schema = yup.object().shape({
+      description: yup.string().required(),
+      price: yup.number().required(),
+      location: yup.string().required(),
+      status: yup.boolean().required(),
+    })
+    
+    
     const { filename } = req.file; // pegando a imagem
     const { house_id} = req.params; // pegando o id da casa
     const {description, price, location, status} = req.body; // pegando as informações do body
@@ -56,6 +64,10 @@ class HouseController {
 
     const user = await User.findById(user_id);
     const houses = await House.findById(house_id);
+
+    if(!(await schema.isValid(req.body))){
+      return res.status(400).json({error: 'Falha na validação'})
+    }
 
     if(String(user._id) !== String(houses.user)){
       return res.status(401).json({ error: 'Não autorizado.'});
