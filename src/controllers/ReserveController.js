@@ -7,13 +7,9 @@ class ReserveController {
   async index(req, res) {
     const { user_id } = req.headers;
 
-    const reserves = await Reserve.findById({user: user_id}).populate("house")
-    .populate("user")
-    .exec(function (err, reserve) {
-      return res.json(reserves);
-    });;
+    const reserves = await Reserve.find({user: user_id}).populate('house');
 
-
+    return res.json(reserves);
   }
 
 
