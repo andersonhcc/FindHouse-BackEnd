@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
 const ReserveSchema = new Schema({
   date: String,
@@ -6,13 +6,13 @@ const ReserveSchema = new Schema({
     type: Schema.Types.ObjectId,
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
     },
     house: {
       type: Schema.Types.ObjectId,
-      ref: 'House',
-    }
-  }
-})
+      ref: "House",
+    },
+  },
+});
 
-export default model('Reserve', ReserveSchema);
+export default model("Reserve", ReserveSchema);

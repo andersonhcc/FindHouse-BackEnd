@@ -17,6 +17,12 @@
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/mongoose": "^5.11.97",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.1",
     "sucrase": "3.10.1"
   }
 }
